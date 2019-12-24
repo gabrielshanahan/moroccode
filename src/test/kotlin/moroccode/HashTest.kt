@@ -28,9 +28,6 @@ import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 
-/*
- * Adapted from https://github.com/PvdBerg1998/HashKode
- */
 internal class HashTest : StringSpec({
     "Hash is unique" {
         hash("moroccode.Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "moroccode.Test")

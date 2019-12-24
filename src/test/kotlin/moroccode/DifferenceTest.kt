@@ -25,27 +25,37 @@
 package moroccode
 
 import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 
-internal class EqualTest : StringSpec({
-    "Equal objects are equal" {
-        DummyCompareByFields() shouldBe DummyCompareByFields()
-        DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
-        DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
+internal class DifferenceTest : StringSpec({
+    val same1 = Dummy()
+    val same2 = Dummy()
 
-        DummyCompareBy() shouldBe DummyCompareBy()
-        DummyCompareBy(null) shouldBe DummyCompareBy(null)
-        DummyCompareBy(null, null) shouldBe DummyCompareBy(null, null)
+    val different1 = Dummy("Hello")
+    val different2 = Dummy("World")
+
+    "Difference by fields behaves correctly" {
+
+        val diff = same1.diffByFields(same2) { listOf(f1, f2) }
+        val diff2 = different1.diffByFields(different2) { listOf(f1, f2) }
+
+        diff shouldBe emptyList()
+        diff2.size shouldBe 1
+        diff2.single() shouldBe FieldDifference(different1 to "Hello", different2 to "World")
     }
 
-    "Different objects are not equal" {
-        DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
-        DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
-        DummyCompareByFields() shouldNotBe DummyCompareByFields(null)
+    "Custom difference behaves correctly" {
 
-        DummyCompareBy(f2 = 1.0) shouldNotBe DummyCompareBy(f2 = 2.5)
-        DummyCompareBy(null) shouldNotBe DummyCompareBy()
-        DummyCompareBy() shouldNotBe DummyCompareBy(null)
+        val diffSame = different1.diffBy(different2) {
+            if (f1?.length != it.f1?.length) listOf(f1 to it.f1) else emptyList()
+        }
+
+        val diffDiff = different1.diffBy(different2) {
+            if (f1?.firstOrNull() != it.f1?.firstOrNull()) listOf(f1 to it.f1) else emptyList()
+        }
+
+        diffSame shouldBe emptyList()
+        diffDiff.size shouldBe 1
+        diffDiff.single() shouldBe FieldDifference(different1 to "Hello", different2 to "World")
     }
 })
