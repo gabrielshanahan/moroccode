@@ -31,7 +31,7 @@ typealias FieldValue = Any?
 
 /**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
- * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareBy]
+ * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareByUsing]
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
@@ -54,7 +54,7 @@ inline fun <reified T : Any> T.compareByFields(
  *
  * @see Any.equals
  */
-inline fun <reified T : Any> T.compareBy(
+inline fun <reified T : Any> T.compareByUsing(
     other: Any?,
     compare: T.(T) -> Boolean
 ) = other is T && compare(other)
