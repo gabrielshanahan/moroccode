@@ -33,7 +33,7 @@ import io.kotlintest.specs.StringSpec
  */
 internal class HashTest : StringSpec({
     "Hash is unique" {
-        hash("Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "Test")
+        hash("moroccode.Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "moroccode.Test")
         hash(Any()) shouldNotBe hash(Any())
     }
 
@@ -41,9 +41,9 @@ internal class HashTest : StringSpec({
         with(Any()) {
             hash(this) shouldBe hash(this)
         }
-        hash(Dummy()) shouldBe hash(Dummy())
-        hash(Dummy(null)) shouldBe hash(Dummy(null))
-        hash(Dummy(null, null)) shouldBe hash(Dummy(null, null))
+        hash(DummyCompareByFields()) shouldBe hash(DummyCompareByFields())
+        hash(DummyCompareByFields(null)) shouldBe hash(DummyCompareByFields(null))
+        hash(DummyCompareByFields(null, null)) shouldBe hash(DummyCompareByFields(null, null))
         hash(1, 2, 3) shouldBe hash(1, 2, 3)
     }
 })

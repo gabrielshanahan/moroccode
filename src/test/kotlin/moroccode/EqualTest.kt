@@ -33,14 +33,22 @@ import io.kotlintest.specs.StringSpec
  */
 internal class EqualTest : StringSpec({
     "Equal objects are equal" {
-        Dummy() shouldBe Dummy()
-        Dummy(null) shouldBe Dummy(null)
-        Dummy(null, null) shouldBe Dummy(null, null)
+        DummyCompareByFields() shouldBe DummyCompareByFields()
+        DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
+        DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
+
+        DummyCompareBy() shouldBe DummyCompareBy()
+        DummyCompareBy(null) shouldBe DummyCompareBy(null)
+        DummyCompareBy(null, null) shouldBe DummyCompareBy(null, null)
     }
 
     "Different objects are not equal" {
-        Dummy(f2 = 1.0) shouldNotBe Dummy(f2 = 2.5)
-        Dummy(null) shouldNotBe Dummy()
-        Dummy() shouldNotBe Dummy(null)
+        DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
+        DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
+        DummyCompareByFields() shouldNotBe DummyCompareByFields(null)
+
+        DummyCompareBy(f2 = 1.0) shouldNotBe DummyCompareBy(f2 = 2.5)
+        DummyCompareBy(null) shouldNotBe DummyCompareBy()
+        DummyCompareBy() shouldNotBe DummyCompareBy(null)
     }
 })

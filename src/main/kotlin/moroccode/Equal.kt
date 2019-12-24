@@ -25,8 +25,8 @@
 package moroccode
 
 /**
- * Convenience method to test for equality. Objects are equal if they have the same type and the list of fields
- * returned by [getFields] are the same.
+ * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
+ * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareBy]
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
@@ -38,3 +38,18 @@ inline fun <reified T : Any> T.compareByFields(
     other: Any?,
     getFields: T.() -> List<Any?>
 ) = other is T && getFields() == other.getFields()
+
+/**
+ * One of two convenience methods to test for equality. Objects are equal if they have the same type and [compare]
+ * returns true. This method requires some boilerplate and is less concise, but more efficient, than [compareByFields].
+ *
+ * @receiver Object to compare to [other]
+ * @param other Object to compare to receiver
+ * @param compare Function literal that does the comparison. One object is the receiver, the other a parameter.
+ *
+ * @see Any.equals
+ */
+inline fun <reified T : Any> T.compareBy(
+    other: Any?,
+    compare: T.(T) -> Boolean
+) = other is T && compare(other)
