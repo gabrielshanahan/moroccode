@@ -31,19 +31,16 @@ import io.kotlintest.specs.StringSpec
 /*
  * Adapted from https://github.com/PvdBerg1998/HashKode
  */
-internal class HashTest : StringSpec({
-    "Hash is unique" {
-        hash("Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "Test")
-        hash(Any()) shouldNotBe hash(Any())
+internal class EqualTest : StringSpec({
+    "Equal objects are equal" {
+        Dummy() shouldBe Dummy()
+        Dummy(null) shouldBe Dummy(null)
+        Dummy(null, null) shouldBe Dummy(null, null)
     }
 
-    "Hash is consistent" {
-        with(Any()) {
-            hash(this) shouldBe hash(this)
-        }
-        hash(Dummy()) shouldBe hash(Dummy())
-        hash(Dummy(null)) shouldBe hash(Dummy(null))
-        hash(Dummy(null, null)) shouldBe hash(Dummy(null, null))
-        hash(1, 2, 3) shouldBe hash(1, 2, 3)
+    "Different objects are not equal" {
+        Dummy(f2 = 1.0) shouldNotBe Dummy(f2 = 2.5)
+        Dummy(null) shouldNotBe Dummy()
+        Dummy() shouldNotBe Dummy(null)
     }
 })

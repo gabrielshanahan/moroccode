@@ -24,26 +24,17 @@
 
 package moroccode
 
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
-import io.kotlintest.specs.StringSpec
-
-/*
- * Adapted from https://github.com/PvdBerg1998/HashKode
+/**
+ * Convenience method to test for equality. Objects are equal if they have the same type and the list of fields
+ * returned by [getFields] are the same.
+ *
+ * @receiver Object to compare to [other]
+ * @param other Object to compare to receiver
+ * @param getFields Function literal that returns the fields to be compared
+ *
+ * @see Any.equals
  */
-internal class HashTest : StringSpec({
-    "Hash is unique" {
-        hash("Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "Test")
-        hash(Any()) shouldNotBe hash(Any())
-    }
-
-    "Hash is consistent" {
-        with(Any()) {
-            hash(this) shouldBe hash(this)
-        }
-        hash(Dummy()) shouldBe hash(Dummy())
-        hash(Dummy(null)) shouldBe hash(Dummy(null))
-        hash(Dummy(null, null)) shouldBe hash(Dummy(null, null))
-        hash(1, 2, 3) shouldBe hash(1, 2, 3)
-    }
-})
+inline fun <reified T : Any> T.compareByFields(
+    other: Any?,
+    getFields: T.() -> List<Any?>
+) = other is T && getFields() == other.getFields()
