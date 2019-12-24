@@ -38,14 +38,14 @@ As of Q4 2019:
 
 ---
 
-# How to use
+## How to use
 - [Hashcodes](#hash-codes)
 - [Equality](#equality)
 - [Difference](#difference)
 
 ---
 
-## Hash codes
+### Hash codes
 Moroccode makes creating hashes of your fields extremely convenient: just pass your fields to `hash`.
 ```kotlin
 override fun hashCode() = hash(
@@ -56,10 +56,10 @@ Unlike HashKode, `hash` uses Java's [Objects.hashCode](https://docs.oracle.com/j
 
 ---
 
-## Equality
+### Equality
 Checking two objects for structural equality can be done by overriding the builtin `equals` method and using Moroccode's comparison functions.
 
-### compareByFields - The concise way
+#### compareByFields - The concise way
 
 ```Kotlin
 override fun equals(other: Any?) = compareByFields(other) { listOf(field1, field2, field3, ...) }
@@ -67,17 +67,17 @@ override fun equals(other: Any?) = compareByFields(other) { listOf(field1, field
 
 That's it.
 
-### compareBy - The efficient way
+#### compareBy - The efficient way
 
 ```Kotlin
 override fun equals(other: Any?): Boolean = compareBy(other) { field1 == it.field1 && field2 == it.field2 && ... }
 ```
 
-This method requires some boilerplate, but it performs much faster. It also allows custom equality definitions - there is nothing stopping you from writting `field1 == it.field1 || field2 == it.field2`
+This method requires some boilerplate, but it performs much faster. It also allows custom equality definitions - there is nothing stopping you from writing `field1 == it.field1 || field2 == it.field2`
 
 ---
 
-## Difference
+### Difference
 Moroccode can list differences between fields of objects. The API is the same as with [compareByFields](#comparebyfields---the-concise-way).
 ```kotlin
 val test1 = Dummy(f1 = "Hello", f2 = 5)
@@ -124,7 +124,7 @@ Moroccode can outperform alternative libraries.
 - Libraries tested: `Moroccode`, `HashKode`, `Guava`, `Apache`
 
 ### compareByFields
-####TBD
+#### TBD
 
 ### compareByFields
-####TBD
+#### TBD
