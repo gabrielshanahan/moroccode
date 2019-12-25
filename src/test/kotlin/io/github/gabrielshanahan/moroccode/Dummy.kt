@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
 internal class DummyCompareByFields(private val f1: String? = "Hello", private val f2: Number? = 5) {
     override fun hashCode() = hash(f1, f2)

@@ -22,39 +22,44 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
 /**
- * An alias for Any?. Used for better readability and clearer intent when used in function literal types.
+ * Container class for field differences. The words "receiver" and "argument" are mean in the context of the difference
+ * function [diffByFields] and [diffBy]
+ *
+ * @param receiverData A pair containing the receiver object and its value of the differing field
+ * @param argumentData A pair containing the argument object and its value of the differing field
  */
-typealias FieldValue = Any?
+data class FieldDifference<out T>(val receiverData: Pair<T, FieldValue>, val argumentData: Pair<T, FieldValue>)
 
 /**
- * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
- * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareByUsing]
+ * Returns a list of [FieldDifferences][FieldDifference] for every differing field of the receiver and argument.
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
  * @param getFields Function literal that returns the fields to be compared
- *
- * @see Any.equals
  */
-inline fun <reified T : Any> T.compareByFields(
-    other: Any?,
+inline fun <reified T : Any> T.diffByFields(
+    other: T,
     getFields: T.() -> List<FieldValue>
-) = other is T && getFields() == other.getFields()
+) = if (this === other) emptyList() else (getFields() zip other.getFields())
+        .filter { it.first != it.second }
+        .map {
+            FieldDifference(this to it.first, other to it.second)
+        }
 
 /**
- * One of two convenience methods to test for equality. Objects are equal if they have the same type and [compare]
- * returns true. This method requires some boilerplate and is less concise, but more efficient, than [compareByFields].
+ * Returns a list of [FieldDifferences][FieldDifference] as specified by [getDiffs].
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
- * @param compare Function literal that does the comparison. One object is its receiver, the other its parameter.
- *
- * @see Any.equals
+ * @param getDiffs Function literal that returns a list of field difference pairs, i.e.
+ * listOf(receiver.field_1 to argument.field_1, ...)
  */
-inline fun <reified T : Any> T.compareByUsing(
-    other: Any?,
-    compare: T.(T) -> Boolean
-) = other is T && compare(other)
+inline fun <reified T : Any> T.diffBy(
+    other: T,
+    getDiffs: T.(T) -> List<Pair<FieldValue, FieldValue>>
+) = if (this === other) emptyList() else getDiffs(other).map {
+    FieldDifference(this to it.first, other to it.second)
+}

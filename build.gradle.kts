@@ -15,7 +15,7 @@ repositories {
     jcenter()
 }
 
-group = "com.github.gabrielshanahan.moroccode"
+group = "io.github.gabrielshanahan"
 version = "0.0.1a"
 
 dependencies {

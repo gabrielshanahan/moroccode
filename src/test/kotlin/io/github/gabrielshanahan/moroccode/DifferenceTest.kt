@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec

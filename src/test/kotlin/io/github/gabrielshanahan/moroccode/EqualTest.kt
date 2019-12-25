@@ -22,25 +22,30 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.StringSpec
 
-internal class HashTest : StringSpec({
-    "Hash is unique" {
-        hash("moroccode.Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "moroccode.Test")
-        hash(Any()) shouldNotBe hash(Any())
+internal class EqualTest : StringSpec({
+    "Equal objects are equal" {
+        DummyCompareByFields() shouldBe DummyCompareByFields()
+        DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
+        DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
+
+        DummyCompareBy() shouldBe DummyCompareBy()
+        DummyCompareBy(null) shouldBe DummyCompareBy(null)
+        DummyCompareBy(null, null) shouldBe DummyCompareBy(null, null)
     }
 
-    "Hash is consistent" {
-        with(Any()) {
-            hash(this) shouldBe hash(this)
-        }
-        hash(DummyCompareByFields()) shouldBe hash(DummyCompareByFields())
-        hash(DummyCompareByFields(null)) shouldBe hash(DummyCompareByFields(null))
-        hash(DummyCompareByFields(null, null)) shouldBe hash(DummyCompareByFields(null, null))
-        hash(1, 2, 3) shouldBe hash(1, 2, 3)
+    "Different objects are not equal" {
+        DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
+        DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
+        DummyCompareByFields() shouldNotBe DummyCompareByFields(null)
+
+        DummyCompareBy(f2 = 1.0) shouldNotBe DummyCompareBy(f2 = 2.5)
+        DummyCompareBy(null) shouldNotBe DummyCompareBy()
+        DummyCompareBy() shouldNotBe DummyCompareBy(null)
     }
 })

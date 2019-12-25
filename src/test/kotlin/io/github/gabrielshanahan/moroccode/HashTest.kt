@@ -22,18 +22,25 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
-/**
- * Alias for [java.util.Objects.hashCode]. Defined to prevent unnecessary wrapping in an array.
- *
- * @param field The field to generate hash code from
- */
-fun hash(field: Any?) = java.util.Objects.hashCode(field)
+import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
+import io.kotlintest.specs.StringSpec
 
-/**
- * Alias for [contentHashCode].
- *
- * @param field The fields to generate hash code from
- */
-fun hash(vararg fields: Any?) = fields.contentHashCode()
+internal class HashTest : StringSpec({
+    "Hash is unique" {
+        hash("moroccode.Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "moroccode.Test")
+        hash(Any()) shouldNotBe hash(Any())
+    }
+
+    "Hash is consistent" {
+        with(Any()) {
+            hash(this) shouldBe hash(this)
+        }
+        hash(DummyCompareByFields()) shouldBe hash(DummyCompareByFields())
+        hash(DummyCompareByFields(null)) shouldBe hash(DummyCompareByFields(null))
+        hash(DummyCompareByFields(null, null)) shouldBe hash(DummyCompareByFields(null, null))
+        hash(1, 2, 3) shouldBe hash(1, 2, 3)
+    }
+})

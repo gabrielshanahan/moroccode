@@ -22,30 +22,18 @@
  * SOFTWARE.
  */
 
-package moroccode
+package io.github.gabrielshanahan.moroccode
 
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
-import io.kotlintest.specs.StringSpec
+/**
+ * Alias for [java.util.Objects.hashCode]. Defined to prevent unnecessary wrapping in an array.
+ *
+ * @param field The field to generate hash code from
+ */
+fun hash(field: Any?) = java.util.Objects.hashCode(field)
 
-internal class EqualTest : StringSpec({
-    "Equal objects are equal" {
-        DummyCompareByFields() shouldBe DummyCompareByFields()
-        DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
-        DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
-
-        DummyCompareBy() shouldBe DummyCompareBy()
-        DummyCompareBy(null) shouldBe DummyCompareBy(null)
-        DummyCompareBy(null, null) shouldBe DummyCompareBy(null, null)
-    }
-
-    "Different objects are not equal" {
-        DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
-        DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
-        DummyCompareByFields() shouldNotBe DummyCompareByFields(null)
-
-        DummyCompareBy(f2 = 1.0) shouldNotBe DummyCompareBy(f2 = 2.5)
-        DummyCompareBy(null) shouldNotBe DummyCompareBy()
-        DummyCompareBy() shouldNotBe DummyCompareBy(null)
-    }
-})
+/**
+ * Alias for [contentHashCode].
+ *
+ * @param field The fields to generate hash code from
+ */
+fun hash(vararg fields: Any?) = fields.contentHashCode()
