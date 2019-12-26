@@ -31,7 +31,7 @@ package io.github.gabrielshanahan.moroccode
  * @param receiverData A pair containing the receiver object and its value of the differing field
  * @param argumentData A pair containing the argument object and its value of the differing field
  */
-data class FieldDifference<out T>(val receiverData: Pair<T, FieldValue>, val argumentData: Pair<T, FieldValue>)
+public data class FieldDifference<out T>(val receiverData: Pair<T, FieldValue>, val argumentData: Pair<T, FieldValue>)
 
 /**
  * Returns a list of [FieldDifferences][FieldDifference] for every differing field of the receiver and argument.
@@ -40,10 +40,10 @@ data class FieldDifference<out T>(val receiverData: Pair<T, FieldValue>, val arg
  * @param other Object to compare to receiver
  * @param getFields Function literal that returns the fields to be compared
  */
-inline fun <reified T : Any> T.diffByFields(
+public inline fun <reified T : Any> T.diffByFields(
     other: T,
     getFields: T.() -> List<FieldValue>
-) = if (this === other) emptyList() else (getFields() zip other.getFields())
+): List<FieldDifference<T>> = if (this === other) emptyList() else (getFields() zip other.getFields())
         .filter { it.first != it.second }
         .map {
             FieldDifference(this to it.first, other to it.second)
@@ -57,9 +57,9 @@ inline fun <reified T : Any> T.diffByFields(
  * @param getDiffs Function literal that returns a list of field difference pairs, i.e.
  * listOf(receiver.field_1 to argument.field_1, ...)
  */
-inline fun <reified T : Any> T.diffBy(
+public inline fun <reified T : Any> T.diffBy(
     other: T,
     getDiffs: T.(T) -> List<Pair<FieldValue, FieldValue>>
-) = if (this === other) emptyList() else getDiffs(other).map {
+): List<FieldDifference<T>> = if (this === other) emptyList() else getDiffs(other).map {
     FieldDifference(this to it.first, other to it.second)
 }

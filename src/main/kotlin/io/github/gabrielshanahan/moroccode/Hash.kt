@@ -29,11 +29,11 @@ package io.github.gabrielshanahan.moroccode
  *
  * @param field The field to generate hash code from
  */
-fun hash(field: Any?) = java.util.Objects.hashCode(field)
+public fun hash(field: Any?): Int = java.util.Objects.hashCode(field)
 
 /**
  * Alias for [contentHashCode].
  *
  * @param field The fields to generate hash code from
  */
-fun hash(vararg fields: Any?) = fields.contentHashCode()
+public fun hash(vararg fields: Any?): Int = fields.contentHashCode()

@@ -27,7 +27,7 @@ package io.github.gabrielshanahan.moroccode
 /**
  * An alias for Any?. Used for better readability and clearer intent when used in function literal types.
  */
-typealias FieldValue = Any?
+internal typealias FieldValue = Any?
 
 /**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
@@ -39,10 +39,10 @@ typealias FieldValue = Any?
  *
  * @see Any.equals
  */
-inline fun <reified T : Any> T.compareByFields(
+public inline fun <reified T : Any> T.compareByFields(
     other: Any?,
     getFields: T.() -> List<FieldValue>
-) = other is T && getFields() == other.getFields()
+): Boolean = other is T && getFields() == other.getFields()
 
 /**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and [compare]
@@ -54,7 +54,7 @@ inline fun <reified T : Any> T.compareByFields(
  *
  * @see Any.equals
  */
-inline fun <reified T : Any> T.compareByUsing(
+public inline fun <reified T : Any> T.compareByUsing(
     other: Any?,
     compare: T.(T) -> Boolean
-) = other is T && compare(other)
+): Boolean = other is T && compare(other)
