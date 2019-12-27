@@ -8,15 +8,14 @@ plugins {
     id("io.gitlab.arturbosch.detekt").version("1.2.2")
     id("org.sonarqube") version "2.8"
     id("org.jetbrains.dokka") version "0.10.0"
+
+    id("publish-mavencentral")
 }
 
 repositories {
     mavenCentral()
     jcenter()
 }
-
-group = "io.github.gabrielshanahan"
-version = "0.0.1a"
 
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
