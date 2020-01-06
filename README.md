@@ -67,10 +67,10 @@ override fun equals(other: Any?) = compareByFields(other) { listOf(field1, field
 
 That's it.
 
-#### compareByUsing - The efficient way
+#### compareUsing - The efficient way
 
 ```Kotlin
-override fun equals(other: Any?): Boolean = compareByUsing(other) { field1 == it.field1 && field2 == it.field2 && ... }
+override fun equals(other: Any?): Boolean = compareUsing(other) { field1 == it.field1 && field2 == it.field2 && ... }
 ```
 
 This method requires some boilerplate, but it performs much faster. It also allows custom equality definitions - there is nothing stopping you from writing `field1 == it.field1 || field2 == it.field2`
@@ -126,5 +126,5 @@ Moroccode can outperform alternative libraries.
 ### compareByFields
 #### TBD
 
-### compareByUsing
+### compareUsing
 #### TBD
