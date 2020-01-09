@@ -24,9 +24,29 @@
 
 package io.github.gabrielshanahan.moroccode
 
-public class EqualContext<T : Any>(val one: T, val two: T) {
-    fun <R> fields(f: T.() -> R) = one.f() == two.f()
+/**
+ * A container for functions used in [compareUsingFields]. These helper functions define a simple DSL syntax for
+ * equality checks, either in the form: fields { field1 } and { field2 } ..., or in using explicit getters:
+ * field(MyObject::field1) and MyObject::Field2 ...
+ *
+ * @param T The type of the objects being compared
+ * @property one One of the objects being compared
+ * @property two The other object being compared
+ *
+ * @sample io.github.gabrielshanahan.moroccode.DummyCompareUsingSingleField.equals
+ * @sample io.github.gabrielshanahan.moroccode.DummyCompareUsingFields.equals
+ *
+ * @see compareUsingFields
+ */
+public class CompareUsingFieldsContext<T : Any>(val one: T, val two: T) {
+    /**
+     * Use the passed in [getter] to create an equality check.
+     */
+    inline fun <R> fields(getter: T.() -> R) = one.getter() == two.getter()
 
+    /**
+     * Used to chain additional equality checks
+     */
     inline infix fun <R> Boolean.and(crossinline getter: T.() -> R): Boolean =
             this && one.getter() == two.getter()
 }

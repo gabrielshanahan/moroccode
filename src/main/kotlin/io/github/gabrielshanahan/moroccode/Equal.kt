@@ -25,27 +25,35 @@
 package io.github.gabrielshanahan.moroccode
 
 /**
- * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
- * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareUsing]
+ * One of two convenience methods to test for equality. Objects are equal if they have the same type and [fields]
+ * returns true. It is expected that [fields] will use helper functions defined on [CompareUsingFieldsContext], which
+ * makes this method more concise, but less efficient, than [compareUsing].
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
- * @param fields Function literal that returns the fields to be compared
+ * @param fields Function literal that does the comparison using helper functions defined in
+ * [CompareUsingFieldsContext].
+ *
+ * @sample io.github.gabrielshanahan.moroccode.DummyCompareUsingSingleField.equals
+ * @sample io.github.gabrielshanahan.moroccode.DummyCompareUsingFields.equals
  *
  * @see Any.equals
  */
-public inline fun <reified T : Any> T.compareByFields(
-        other: Any?,
-        fields: EqualContext<T>.() -> Boolean
-): Boolean = other is T && EqualContext(this, other).fields()
+public inline fun <reified T : Any> T.compareUsingFields(
+    other: Any?,
+    fields: CompareUsingFieldsContext<T>.() -> Boolean
+): Boolean = other is T && CompareUsingFieldsContext(this, other).fields()
 
 /**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and [compare]
- * returns true. This method requires some boilerplate and is less concise, but more efficient, than [compareByFields].
+ * returns true. This method requires some boilerplate and is less concise, but more efficient, than
+ * [compareUsingFields].
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
  * @param compare Function literal that does the comparison. One object is its receiver, the other its parameter.
+ *
+ * @sample DummyCompareUsing.equals
  *
  * @see Any.equals
  */

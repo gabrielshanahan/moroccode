@@ -30,29 +30,29 @@ import io.kotlintest.specs.StringSpec
 
 internal class EqualTest : StringSpec({
     "Equal objects are equal" {
-        DummyCompareBySingleField() shouldBe DummyCompareBySingleField()
-        DummyCompareBySingleField(null) shouldBe DummyCompareBySingleField(null)
-        DummyCompareBySingleField(null, 1) shouldBe DummyCompareBySingleField(null, 2)
+        DummyCompareUsingSingleField() shouldBe DummyCompareUsingSingleField()
+        DummyCompareUsingSingleField(null) shouldBe DummyCompareUsingSingleField(null)
+        DummyCompareUsingSingleField(null, 1) shouldBe DummyCompareUsingSingleField(null, 2)
 
-        DummyCompareByFields() shouldBe DummyCompareByFields()
-        DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
-        DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
+        DummyCompareUsingFields() shouldBe DummyCompareUsingFields()
+        DummyCompareUsingFields(null) shouldBe DummyCompareUsingFields(null)
+        DummyCompareUsingFields(null, null) shouldBe DummyCompareUsingFields(null, null)
 
-        DummyCompareBy() shouldBe DummyCompareBy()
-        DummyCompareBy(null) shouldBe DummyCompareBy(null)
-        DummyCompareBy(null, null) shouldBe DummyCompareBy(null, null)
+        DummyCompareUsing() shouldBe DummyCompareUsing()
+        DummyCompareUsing(null) shouldBe DummyCompareUsing(null)
+        DummyCompareUsing(null, null) shouldBe DummyCompareUsing(null, null)
     }
 
     "Different objects are not equal" {
-        DummyCompareBySingleField(null) shouldNotBe DummyCompareBySingleField()
-        DummyCompareBySingleField() shouldNotBe DummyCompareBySingleField(null)
+        DummyCompareUsingSingleField(null) shouldNotBe DummyCompareUsingSingleField()
+        DummyCompareUsingSingleField() shouldNotBe DummyCompareUsingSingleField(null)
 
-        DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
-        DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
-        DummyCompareByFields() shouldNotBe DummyCompareByFields(null)
+        DummyCompareUsingFields(f2 = 1.0) shouldNotBe DummyCompareUsingFields(f2 = 2.5)
+        DummyCompareUsingFields(null) shouldNotBe DummyCompareUsingFields()
+        DummyCompareUsingFields() shouldNotBe DummyCompareUsingFields(null)
 
-        DummyCompareBy(f2 = 1.0) shouldNotBe DummyCompareBy(f2 = 2.5)
-        DummyCompareBy(null) shouldNotBe DummyCompareBy()
-        DummyCompareBy() shouldNotBe DummyCompareBy(null)
+        DummyCompareUsing(f2 = 1.0) shouldNotBe DummyCompareUsing(f2 = 2.5)
+        DummyCompareUsing(null) shouldNotBe DummyCompareUsing()
+        DummyCompareUsing() shouldNotBe DummyCompareUsing(null)
     }
 })

@@ -24,17 +24,17 @@
 
 package io.github.gabrielshanahan.moroccode
 
-internal class DummyCompareBySingleField(private val f1: String? = "Hello", private val f2: Number? = 5) {
+internal class DummyCompareUsingSingleField(private val f1: String? = "Hello", private val f2: Number? = 5) {
     override fun hashCode() = hash(f1, f2)
-    override fun equals(other: Any?): Boolean = compareByFields(other) { fields { f1 } }
+    override fun equals(other: Any?): Boolean = compareUsingFields(other) { fields { f1 } }
 }
 
-internal class DummyCompareByFields(private val f1: String? = "Hello", private val f2: Number? = 5) {
+internal class DummyCompareUsingFields(private val f1: String? = "Hello", private val f2: Number? = 5) {
     override fun hashCode() = hash(f1, f2)
-    override fun equals(other: Any?): Boolean = compareByFields(other) { fields { f1 } and { f2 } }
+    override fun equals(other: Any?): Boolean = compareUsingFields(other) { fields { f1 } and { f2 } }
 }
 
-internal class DummyCompareBy(private val f1: String? = "Hello", private val f2: Number? = 5) {
+internal class DummyCompareUsing(private val f1: String? = "Hello", private val f2: Number? = 5) {
     override fun hashCode() = hash(f1, f2)
     override fun equals(other: Any?): Boolean = compareUsing(other) { f1 == it.f1 && f2 == it.f2 }
 }

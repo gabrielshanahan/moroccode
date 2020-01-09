@@ -38,9 +38,9 @@ internal class HashTest : StringSpec({
         with(Any()) {
             hash(this) shouldBe hash(this)
         }
-        hash(DummyCompareByFields()) shouldBe hash(DummyCompareByFields())
-        hash(DummyCompareByFields(null)) shouldBe hash(DummyCompareByFields(null))
-        hash(DummyCompareByFields(null, null)) shouldBe hash(DummyCompareByFields(null, null))
+        hash(DummyCompareUsingFields()) shouldBe hash(DummyCompareUsingFields())
+        hash(DummyCompareUsingFields(null)) shouldBe hash(DummyCompareUsingFields(null))
+        hash(DummyCompareUsingFields(null, null)) shouldBe hash(DummyCompareUsingFields(null, null))
         hash(1, 2, 3) shouldBe hash(1, 2, 3)
     }
 })
