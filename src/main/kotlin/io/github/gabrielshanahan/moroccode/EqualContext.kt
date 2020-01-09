@@ -24,23 +24,9 @@
 
 package io.github.gabrielshanahan.moroccode
 
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
-import io.kotlintest.specs.StringSpec
+public class EqualContext<T : Any>(val one: T, val two: T) {
+    fun <R> fields(f: T.() -> R) = one.f() == two.f()
 
-internal class HashTest : StringSpec({
-    "Hash is unique" {
-        hash("moroccode.Test", 1, 2, 3) shouldNotBe hash(1, 2, 3, "moroccode.Test")
-        hash(Any()) shouldNotBe hash(Any())
-    }
-
-    "Hash is consistent" {
-        with(Any()) {
-            hash(this) shouldBe hash(this)
-        }
-        hash(DummyCompareByFields()) shouldBe hash(DummyCompareByFields())
-        hash(DummyCompareByFields(null)) shouldBe hash(DummyCompareByFields(null))
-        hash(DummyCompareByFields(null, null)) shouldBe hash(DummyCompareByFields(null, null))
-        hash(1, 2, 3) shouldBe hash(1, 2, 3)
-    }
-})
+    inline infix fun <R> Boolean.and(crossinline getter: T.() -> R): Boolean =
+            this && one.getter() == two.getter()
+}

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Pim van den Berg
+ * Copyright (c) 2019 gabrielshanahan
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,10 @@ import io.kotlintest.specs.StringSpec
 
 internal class EqualTest : StringSpec({
     "Equal objects are equal" {
+        DummyCompareBySingleField() shouldBe DummyCompareBySingleField()
+        DummyCompareBySingleField(null) shouldBe DummyCompareBySingleField(null)
+        DummyCompareBySingleField(null, 1) shouldBe DummyCompareBySingleField(null, 2)
+
         DummyCompareByFields() shouldBe DummyCompareByFields()
         DummyCompareByFields(null) shouldBe DummyCompareByFields(null)
         DummyCompareByFields(null, null) shouldBe DummyCompareByFields(null, null)
@@ -40,6 +44,9 @@ internal class EqualTest : StringSpec({
     }
 
     "Different objects are not equal" {
+        DummyCompareBySingleField(null) shouldNotBe DummyCompareBySingleField()
+        DummyCompareBySingleField() shouldNotBe DummyCompareBySingleField(null)
+
         DummyCompareByFields(f2 = 1.0) shouldNotBe DummyCompareByFields(f2 = 2.5)
         DummyCompareByFields(null) shouldNotBe DummyCompareByFields()
         DummyCompareByFields() shouldNotBe DummyCompareByFields(null)

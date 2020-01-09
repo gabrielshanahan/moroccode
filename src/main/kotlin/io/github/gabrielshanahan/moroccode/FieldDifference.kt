@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Pim van den Berg
+ * Copyright (c) 2019 gabrielshanahan
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,11 @@
  */
 
 package io.github.gabrielshanahan.moroccode
+
+/**
+ * An alias for Any?. Used for better readability and clearer intent when used in function literal types.
+ */
+internal typealias FieldValue = Any?
 
 /**
  * Container class for field differences. The words "receiver" and "argument" are mean in the context of the difference

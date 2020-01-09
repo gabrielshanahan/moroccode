@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Pim van den Berg
+ * Copyright (c) 2019 gabrielshanahan
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,24 +25,19 @@
 package io.github.gabrielshanahan.moroccode
 
 /**
- * An alias for Any?. Used for better readability and clearer intent when used in function literal types.
- */
-internal typealias FieldValue = Any?
-
-/**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and the list of
  * fields returned by [getFields] are the same. This method is more concise, but less efficient, than [compareUsing]
  *
  * @receiver Object to compare to [other]
  * @param other Object to compare to receiver
- * @param getFields Function literal that returns the fields to be compared
+ * @param fields Function literal that returns the fields to be compared
  *
  * @see Any.equals
  */
 public inline fun <reified T : Any> T.compareByFields(
-    other: Any?,
-    getFields: T.() -> List<FieldValue>
-): Boolean = other is T && getFields() == other.getFields()
+        other: Any?,
+        fields: EqualContext<T>.() -> Boolean
+): Boolean = other is T && EqualContext(this, other).fields()
 
 /**
  * One of two convenience methods to test for equality. Objects are equal if they have the same type and [compare]

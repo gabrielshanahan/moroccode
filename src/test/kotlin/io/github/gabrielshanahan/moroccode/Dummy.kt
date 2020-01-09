@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017 Pim van den Berg
+ * Copyright (c) 2019 gabrielshanahan
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,14 @@
 
 package io.github.gabrielshanahan.moroccode
 
+internal class DummyCompareBySingleField(private val f1: String? = "Hello", private val f2: Number? = 5) {
+    override fun hashCode() = hash(f1, f2)
+    override fun equals(other: Any?): Boolean = compareByFields(other) { fields { f1 } }
+}
+
 internal class DummyCompareByFields(private val f1: String? = "Hello", private val f2: Number? = 5) {
     override fun hashCode() = hash(f1, f2)
-    override fun equals(other: Any?): Boolean = compareByFields(other) { listOf(f1, f2) }
+    override fun equals(other: Any?): Boolean = compareByFields(other) { fields { f1 } and { f2 } }
 }
 
 internal class DummyCompareBy(private val f1: String? = "Hello", private val f2: Number? = 5) {
