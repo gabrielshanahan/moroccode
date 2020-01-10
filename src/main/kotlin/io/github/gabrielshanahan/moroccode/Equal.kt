@@ -53,7 +53,7 @@ public inline fun <reified T : Any> T.compareUsingFields(
  * @param other Object to compare to receiver
  * @param compare Function literal that does the comparison. One object is its receiver, the other its parameter.
  *
- * @sample DummyCompareUsing.equals
+ * @sample io.github.gabrielshanahan.moroccode.DummyCompareUsing.equals
  *
  * @see Any.equals
  */
