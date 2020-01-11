@@ -35,6 +35,28 @@ From [HashKode](https://github.com/PvdBerg1998/HashKode#why):
 # Using Moroccode
 Moroccode can be downloaded from the [Maven Central Repository]().
 
+Using Gradle with Kotlin DSL:
+```Kotlin
+implementation("io.github.gabrielshanahan", "moroccode", "1.0.0")
+```
+
+Using Gradle with Groovy:
+```Groovy
+implementation 'io.github.gabrielshanahan:moroccode:1.0.0'
+```
+
+Using Maven
+```XML
+<dependency>
+  <groupId>io.github.gabrielshanahan</groupId>
+  <artifactId>moroccode</artifactId>
+  <version>1.0.0</version>
+  <type>pom.sha512</type>
+</dependency>
+```
+
+
+
 Moroccode is released under the [MIT license](LICENSE.md).
 ---
 
@@ -66,14 +88,14 @@ comparison functions.
 
 Using field names in a lambda with receiver:
 ```Kotlin
-override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 }
-override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 } and { field2 } and ...
+override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 } }
+override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 } and { field2 } and ... }
 ```
 
 Using getters:
 ```Kotlin
-override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1)
-override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1) and MyClass::field2 and ...
+override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1) }
+override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1) and MyClass::field2 and ... }
 ```  
 
 That's it.
