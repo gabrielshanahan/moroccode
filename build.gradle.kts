@@ -1,3 +1,5 @@
+val JAVADOC_DIR: String by extra
+
 plugins {
     kotlin("jvm") version "1.3.61"
 
@@ -47,7 +49,7 @@ tasks {
 
     dokka {
         outputFormat = "html"
-        outputDirectory = "$buildDir/javadoc"
+        outputDirectory = JAVADOC_DIR
         configuration {
             includeNonPublic = true
             reportUndocumented = true

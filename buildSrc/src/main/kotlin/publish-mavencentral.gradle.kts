@@ -3,12 +3,19 @@ plugins {
     signing
 }
 
-val PUBLISH_GROUP_ID by extra { "io.github.gabrielshanahan" }
-val PUBLISH_ARTIFACT_ID: String by extra { rootProject.name }
-val PUBLISH_VERSION by extra { "1.0.0-SNAPSHOT"}
+val PUBLISH_GROUP_ID by extra("io.github.gabrielshanahan")
+val PUBLISH_ARTIFACT_ID by extra(rootProject.name)
+val PUBLISH_VERSION by extra("1.0.0")
+val JAVADOC_DIR: String by extra("$buildDir/javadoc")
 
 group = PUBLISH_GROUP_ID
 version = PUBLISH_VERSION
+
+tasks.register<Jar>("dokkaJar") {
+    dependsOn("dokka")
+    archiveClassifier.set("javadoc")
+    from(JAVADOC_DIR)
+}
 
 publishing {
     publications {
@@ -19,9 +26,10 @@ publishing {
             artifactId = PUBLISH_ARTIFACT_ID
             version = PUBLISH_VERSION
 
-                    // Two artifacts, the `aar` and the sources
+            // Three artifacts, the jar, sources and javadocs
             artifact(tasks["jar"])
             artifact(tasks["kotlinSourcesJar"])
+            artifact(tasks["dokkaJar"])
 
             // Self-explanatory metadata for the most part
             pom {
