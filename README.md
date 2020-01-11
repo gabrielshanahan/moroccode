@@ -9,14 +9,19 @@ and being more concise in others. It is currently among the [smallest](#comparis
 libraries. 
 
 ## Why?
-Mainly because [HashKode](https://github.com/PvdBerg1998/HashKode) is [no longer being maintained](https://github.com/PvdBerg1998/HashKode/issues/3#issuecomment-553642518).
+Mainly because [HashKode](https://github.com/PvdBerg1998/HashKode) is 
+[no longer being maintained](https://github.com/PvdBerg1998/HashKode/issues/3#issuecomment-553642518).
 
 From [HashKode](https://github.com/PvdBerg1998/HashKode#why):
-> Java identifies objects by their `hashcode` and their `equals` method. If you do not override these methods, the JVM can only check objects for referential equality, not structural equality. ([Read more](https://kotlinlang.org/docs/reference/equality.html#equality))
+> Java identifies objects by their `hashcode` and their `equals` method. If you do not override these methods, the JVM 
+>can only check objects for referential equality, not structural equality. 
+>([Read more](https://kotlinlang.org/docs/reference/equality.html#equality))
 
-> Kotlin generates these methods [automatically](https://kotlinlang.org/docs/reference/data-classes.html#data-classes) when you create a `data class`, but sometimes this is not preferred.
+> Kotlin generates these methods [automatically](https://kotlinlang.org/docs/reference/data-classes.html#data-classes) 
+>when you create a `data class`, but sometimes this is not preferred.
 
-> Implementing `hashcode` and `equals` can be tedious, verbose and is bug prone. HashKode provides concise ways to override these methods.
+> Implementing `hashcode` and `equals` can be tedious, verbose and is bug prone. HashKode provides concise ways to 
+>override these methods.
 
 ## Features
 - Lightweight: **8 KB**
@@ -47,12 +52,15 @@ override fun hashCode() = hash(
     field1, field2, field3, field4
 )
 ```
-`hash` uses Java's [Objects.hashCode](https://docs.oracle.com/javase/7/docs/api/java/util/Objects.html#hashCode%28java.lang.Object%29) and Kotlin's [Array.contentHashCode](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-hash-code.html) to calculate the hashes.
+`hash` uses Java's [Objects.hashCode](https://docs.oracle.com/javase/7/docs/api/java/util/Objects.html#hashCode%28java.lang.Object%29)
+and Kotlin's [Array.contentHashCode](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/content-hash-code.html) 
+to calculate the hashes.
 
 ---
 
 ### Equality
-Checking two objects for structural equality can be done by overriding the builtin `equals` method and using Moroccode's comparison functions.
+Checking two objects for structural equality can be done by overriding the builtin `equals` method and using Moroccode's
+comparison functions.
 
 #### compareUsingFields - The concise way
 
@@ -89,7 +97,8 @@ val test2 = Dummy(f1 = "World", f2 = 5)
 val diff = test1.diffByFields(test2) { listOf(f1, f2) }
 ```
 `diff` will now contain a single `FieldDifference` object, since one different field was found.
-`FieldDifference` is a data class containing two pairs of the form `object -> object.field_value` - one for the receiver and one for the argument of diffByFields.
+`FieldDifference` is a data class containing two pairs of the form `object -> object.field_value` - one for the receiver 
+and one for the argument of diffByFields.
 
 A custom comparison can be done by using `diffByFields`.
 
@@ -133,7 +142,8 @@ We compare implementing `equals` using Moroccode to achieving the same with the 
 \* Characters where counted as number of characters necessary to implement the equals method, excluding whitespace and a 
 single count of every fields name, since this is by definition a necessary minimum every implementation must have (in 
 this instances, the field names where anInt, aString, aDouble, aBool and aList, for a total of 29 characters. See
-[the benchmark](https://github.com/gabrielshanahan/moroccode_jmh/) for the code that was used.
+[the benchmark](https://github.com/gabrielshanahan/moroccode_jmh/blob/master/src/main/kotlin/BenchmarkObject.kt) for the
+code that was used.
 
 If the implementation needed to use the class name, typically when referencing getters, it is noted (in this case, the 
 class was BenchmarkObject, which is 15 characters long).  
@@ -151,5 +161,6 @@ class was BenchmarkObject, which is 15 characters long).
     - Double (`Math.PI`)
     - Boolean (`true`)
     - List<String> (`["A", "B", "C", "D", "E"]`)
-- Benchmark implemented using [JMH](https://openjdk.java.net/projects/code-tools/jmh/) with [default settings](https://github.com/openjdk/jmh/blob/master/jmh-core/src/main/java/org/openjdk/jmh/runner/Defaults.java).
+- Benchmark implemented using [JMH](https://openjdk.java.net/projects/code-tools/jmh/) with 
+[default settings](https://github.com/openjdk/jmh/blob/master/jmh-core/src/main/java/org/openjdk/jmh/runner/Defaults.java).
 - The entire code is available [here](https://github.com/gabrielshanahan/moroccode_jmh/)
