@@ -24,8 +24,8 @@ From [HashKode](https://github.com/PvdBerg1998/HashKode#why):
 >override these methods.
 
 ## Features
-- Lightweight: **8 KB**
-- [Very fast, concise & small](#comparison-to-alternative-libraries)
+- Lightweight: 8 KB*
+- [Fast](#comparison-to-alternative-libraries)
 - [Expressive](#how-to-use)
 - Uses the standard library to compute hash codes: tested, high quality hashes
 - Able to list differences
@@ -128,16 +128,16 @@ We compare implementing `equals` using Moroccode to achieving the same with the 
 - [consoleau/kassava](https://github.com/consoleau/kassava)
 
 ### Results
-| Library name                                   | # of characters*                    | Speed                     | Size   |
-|------------------------------------------------|-------------------------------------|---------------------------|--------|
-| Moroccode - compareUsing                       | 83                                  | **23.929 ± 0.511 ns/op**  | 8 KB   |
-| Moroccode - compareUsingFields using getters   | 132 (of which 75 due to class name) |                           | 8 KB   |
-| Moroccode - compareUsingFields using fields    | **55**                              | 28.784 ± 0.803 ns/op      | 8 KB   |
-| HashKode - compareFields (no longer maintained)| 177 (of which 75 due to class name) | 26.538 ± 0.550 ns/op      | 15 KB  |
-| HashKode - compareUsing  (no longer maintained)| 115                                 | 23.963 ± 1.054 ns/op      | 15 KB  |
-| Apache Commons Lang                            | 157 (of which 15 due to class name) | 28.679 ± 0.361 ns/op      | 492 KB |
-| nikarh/equals-builder                          | 186 (of which 75 due to class name) | 26.706 ± 0.200 ns/op      | 4 KB   |
-| consoleau/kassava                              | 135 (of which 75 due to class name) | 131.282 ± 2.324 ns/op     | 5 KB   |
+| Library name                                   | # of characters*         | Speed                     | Size   |
+|------------------------------------------------|--------------------------|---------------------------|--------|
+| Moroccode - compareUsing                       | 83                       | **23.929 ± 0.511 ns/op**  | 8 KB   |
+| Moroccode - compareUsingFields using getters   | 132 (75 from class name) |                           | 8 KB   |
+| Moroccode - compareUsingFields using fields    | **55**                   | 28.784 ± 0.803 ns/op      | 8 KB   |
+| HashKode - compareFields (no longer maintained)| 177 (75 from class name) | 26.538 ± 0.550 ns/op      | 15 KB  |
+| HashKode - compareUsing  (no longer maintained)| 115                      | 23.963 ± 1.054 ns/op      | 15 KB  |
+| Apache Commons Lang                            | 157 (15 from class name) | 28.679 ± 0.361 ns/op      | 492 KB |
+| nikarh/equals-builder                          | 186 (75 from class name) | 26.706 ± 0.200 ns/op      | 4 KB   |
+| consoleau/kassava                              | 135 (75 from class name) | 131.282 ± 2.324 ns/op     | 5 KB   |
 
 \* Characters where counted as number of characters necessary to implement the equals method, excluding whitespace and a 
 single count of every fields name, since this is by definition a necessary minimum every implementation must have (in 
