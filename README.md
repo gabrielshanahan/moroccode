@@ -113,7 +113,7 @@ This method allows custom equality definitions - there is nothing stopping you f
 ---
 
 ### Difference
-Moroccode can list differences between fields of objects. The API is the same as with [compareByFields](#comparebyfields---the-concise-way).
+Moroccode can list differences between fields of objects. The API is the same as with [compareUsingFields](#compareusingfields---the-concise-way).
 ```kotlin
 val test1 = Dummy(f1 = "Hello", f2 = 5)
 val test2 = Dummy(f1 = "World", f2 = 5)
