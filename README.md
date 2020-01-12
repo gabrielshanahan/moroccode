@@ -139,9 +139,6 @@ The lambda returns a list of all differing pairs.
 
 ---
 
-- [HashKode](https://github.com/PvdBerg1998/HashKode) (14.2 KB: +6.2 KB, **no longer maintained**)
-- [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/apidocs/org/apache/commons/lang3/builder/EqualsBuilder.html) (483 KB: +475 KB)
-
 ## Comparison to alternative libraries
 We compare implementing `equals` using Moroccode to achieving the same with the following:
 - [HashKode](https://github.com/PvdBerg1998/HashKode)
