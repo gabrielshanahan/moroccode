@@ -82,23 +82,25 @@ to calculate the hashes.
 
 ### Equality
 Checking two objects for structural equality can be done by overriding the builtin `equals` method and using Moroccode's
-comparison functions.
+equality builder functions. In our benchmarks, the performance difference between the two approaches is, in relative terms, 
+about 18%, which corresponds to a whopping 4.25 ns. For most applications, we advise to use the more expressive of the 
+two, `compareUsingFields`.
 
 #### compareUsingFields - The concise way
 
-Using field names in a lambda with receiver:
 ```Kotlin
 override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 } }
 override fun equals(other: Any?) = compareUsingFields(other) { fields { field1 } and { field2 } and ... }
 ```
 
-Using getters:
+That's it.
+
+It is also possible to use getters in place of the lambda's, however this makes the code more verbose and 
+[there is no performance benefit](#comparison-to-alternative-libraries).
 ```Kotlin
 override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1) }
 override fun equals(other: Any?) = compareUsingFields(other) { fields(MyClass::field1) and MyClass::field2 and ... }
-```  
-
-That's it.
+```
 
 #### compareUsing - The efficient way
 
@@ -152,11 +154,11 @@ We compare implementing `equals` using Moroccode to achieving the same with the 
 ### Results
 | Library name                                   | # of characters*         | Speed                     | Size   |
 |------------------------------------------------|--------------------------|---------------------------|--------|
-| Moroccode - compareUsing                       | 83                       | **23.929 ± 0.511 ns/op**  | 8 KB   |
-| Moroccode - compareUsingFields using getters   | 132 (75 from class name) |                           | 8 KB   |
-| Moroccode - compareUsingFields using fields    | **55**                   | 28.784 ± 0.803 ns/op      | 8 KB   |
-| HashKode - compareFields (no longer maintained)| 177 (75 from class name) | 26.538 ± 0.550 ns/op      | 15 KB  |
-| HashKode - compareUsing  (no longer maintained)| 115                      | 23.963 ± 1.054 ns/op      | 15 KB  |
+| Moroccode - compareUsing                       | 83                       | **23.266 ± 0.500 ns/op**  | 8 KB   |
+| Moroccode - compareUsingFields using getters   | 132 (75 from class name) | 27.601 ± 0.602 ns/op      | 8 KB   |
+| Moroccode - compareUsingFields using fields    | **55**                   | 27.520 ± 0.612 ns/op      | 8 KB   |
+| HashKode - compareFields (no longer maintained)| 177 (75 from class name) | 25.459 ± 0.478 ns/op      | 15 KB  |
+| HashKode - compareUsing (no longer maintained) | 115                      | 23.297 ± 0.234 ns/op      | 15 KB  |
 | Apache Commons Lang                            | 157 (15 from class name) | 28.679 ± 0.361 ns/op      | 492 KB |
 | nikarh/equals-builder                          | 186 (75 from class name) | 26.706 ± 0.200 ns/op      | 4 KB   |
 | consoleau/kassava                              | 135 (75 from class name) | 131.282 ± 2.324 ns/op     | 5 KB   |
