@@ -113,18 +113,18 @@ This method allows custom equality definitions - there is nothing stopping you f
 ---
 
 ### Difference
-Moroccode can list differences between fields of objects. The API is the same as with [compareUsingFields](#compareusingfields---the-concise-way).
+Moroccode can list differences between fields of objects.
 ```kotlin
 val test1 = Dummy(f1 = "Hello", f2 = 5)
 val test2 = Dummy(f1 = "World", f2 = 5)
 
 val diff = test1.diffByFields(test2) { listOf(f1, f2) }
 ```
-`diff` will now contain a single `FieldDifference` object, since one different field was found.
+`diff` will be a list containing a single `FieldDifference` object, since one different field was found.
 `FieldDifference` is a data class containing two pairs of the form `object -> object.field_value` - one for the receiver 
-and one for the argument of diffByFields.
+and one for the argument of `diffByFields`.
 
-A custom comparison can be done by using `diffByFields`.
+A custom comparison can be done by using `diffBy`:
 
 ```kotlin
 val test1 = Dummy(f1 = "Hello", f2 = 5)
@@ -135,7 +135,7 @@ val diffSame = test1.diffBy(test2) {
 }
 ```
 
-The lambda returns a list of all differing pairs.
+The lambda argument should return a list of all differences, encoded as `Pair`s (i.e. `field to it.field`).
 
 ---
 
